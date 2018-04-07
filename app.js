@@ -26,7 +26,8 @@ request({
     }else if(body.status === 'ZERO_RESULTS'){
         console.log('unable to find that address.');
 
+    }else if(body.status === 'OK') {
+        console.log(`Address: ${body.results[0].formatted_address}`);
+        console.log(`Address: ${body.results[0].geometry.location.lat} + ${body.results[0].geometry.location.lng}`);
     }
-    console.log(`Address: ${body.results[0].formatted_address}`);
-    console.log(`Address: ${body.results[0].geometry.location.lat} + ${body.results[0].geometry.location.lng}`);
-});
+    });
