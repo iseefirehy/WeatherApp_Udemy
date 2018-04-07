@@ -14,10 +14,19 @@ const argv = yargs
     .alias('help','h')
     .argv;
 
-    console.log(argv);
+    var encodedAddress = encodeURIComponent(argv.address);
+
+    //console.log(argv);
 request({
-    url:'https://maps.googleapis.com/maps/api/geocode/json?address=1800%20fumia%20pl%20california',
+    url:`https://maps.googleapis.com/maps/api/geocode/json?address=${encodedAddress}`,
     json: true
 },(error,response,body)=>{
+    if(error){
+        console.log("Google Can't provide any information");
+    }else if(body.status === 'ZERO_RESULTS'){
+        console.log('unable to find that address.');
+
+    }
+    console.log(`Address: ${body.results[0].formatted_address}`);
     console.log(`Address: ${body.results[0].geometry.location.lat} + ${body.results[0].geometry.location.lng}`);
 });
